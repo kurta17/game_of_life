@@ -5,3 +5,5 @@ for x in range(board.height):
     board.place_cell(1,x)
 
 print(board.str_board())
+board.next()
+print(board.str_board())
