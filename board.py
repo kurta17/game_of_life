@@ -7,7 +7,7 @@ class Board:
         
         
 
-    def str_board(self):
+    def __str__(self):
         rv = ""
         for m in self.board:
             rv += "".join([".X"[c] for c in m])
@@ -18,8 +18,8 @@ class Board:
         self.board[row][col] = 1
 
     def next(self):
-        for row_num in range(self.width):
-            for col_num in range(self.height):
+        for row_num in range(self.height):
+            for col_num in range(self.width):
                 n = self.count_live_neigh(row_num, col_num)
                 if self.board[row_num][col_num]:
                     if n < 2 or n > 3:
@@ -48,6 +48,20 @@ class Board:
         if 0 <= row < self.height and 0 <= col < self.width:
             return self.board[row][col]
         return False
+    
+    def toggle_cell(self, row, col):
+        self.board[row][col] = not self.board[row][col]
+        
+
+    def is_alive(self, row, col):
+        if self.board[row][col]:
+            return True
+        return False
+
+        
+
+
+
 
 
 
