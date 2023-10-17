@@ -1,14 +1,21 @@
 from board import Board
+import time
+import random
 
 board = Board(3,3)
-# next_boar = board.next_board()
-for x in range(board.height):
-    board.place_cell(1,x)
 
-print(board.str_board())
+def randomize_board(board, density=0.3):
+    for row in range(board.height):
+        for col in range(board.width):
+            if random.random() < density:
+                board.place_cell(row, col)
+
+randomize_board(board)
+generation = 5
 
 
-print(board.str_board())
-
-
-print(board.str_board())
+for gen in range(generation):
+    print(f'Generation : {gen + 1}')
+    print(board.str_board())
+    time.sleep(0.5)
+    board.next()
