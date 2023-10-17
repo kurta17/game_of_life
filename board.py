@@ -3,6 +3,9 @@ class Board:
         self.width = width
         self.height = height
         self.board = [([False] * width) for i in range(height)]
+        self.next_board = [([False] * self.width) for i in range(self.height)]
+        
+        
 
     def str_board(self):
         rv = ""
@@ -15,25 +18,21 @@ class Board:
         self.board[row][col] = 1
 
     def next(self):
-        next_board = [([False] * self.width) for i in range(self.height)]
-        
         for row_num in range(self.width):
             for col_num in range(self.height):
                 n = self.count_live_neigh(row_num, col_num)
                 if self.board[row_num][col_num]:
                     if n < 2 or n > 3:
-                        next_board[row_num][col_num] = False
+                        self.next_board[row_num][col_num] = False
                     else:
-                        next_board[row_num][col_num] = True
+                        self.next_board[row_num][col_num] = True
                 else:
                     if n == 3:
-                        next_board[row_num][col_num] = True
-        self.board = next_board
+                        self.next_board[row_num][col_num] = True
+        self.board, self.next_board = self.next_board, self.board
         
         
-
-            
-        
+         
 
     def count_live_neigh(self,row,col):
         count = 0
@@ -45,11 +44,11 @@ class Board:
                     count += 1
         return count
     
-    def get_cell(self,row,col):
-        if 0 <= row <self.height:
-            if 0 <= col <self.width:
-                return self.board[row][col]
-            return False
+    def get_cell(self, row, col):
+        if 0 <= row < self.height and 0 <= col < self.width:
+            return self.board[row][col]
+        return False
+
 
 
 
